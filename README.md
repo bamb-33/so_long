@@ -3,6 +3,8 @@ This project is a very small 2D game.
 Its purpose is to make you work with textures, sprites,
 and some other very basic gameplay elements.
 ## x-windows
+the whole x-windows thing is built around tcp/ip networks with the idea that a graphical application would run on a server and the clints which are the programs and applictaions on the computer will request from that user if they wanna draw something in the screen
+
 - x-windows system is a windowing graohical system that let you use GUI for your computer's OS and its mostly used in linux
 - windowing system is a GUI that that allows you to open multiple windows at once and overlap them and so many stuff not like the old system that had so many disadvantages
 https://www.techopedia.com/topic/87/artificial-intelligence
