@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/13 14:53:10 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/13 20:19:15 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-typedef struct s_data {
+typedef struct s_args {
 	void	*mlx;
 	void	*mlx_window;
-} t_data ;
+	void	*img;
+} t_args ;
 
 # include <mlx.h>
 # include <unistd.h>
@@ -36,7 +37,6 @@ char	*get_next_line(int fd);
 
 int	maps_height(char *map);
 int	maps_width(char *map);
-void	window_creation(int w, int h, t_data data);
+void	window_creation(int w, int h, t_args data);
 
 #endif
-

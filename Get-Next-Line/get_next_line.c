@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:17:43 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/13 11:57:59 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/13 20:07:11 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,3 @@ char	*get_next_line(int fd)
 			return (NULL);
 	}
 }
-
-
-int main()
-{
-	int fd = open ("test", O_RDONLY);
-	char *buffer = get_next_line(fd);
-	printf("%s\n", buffer);
-}
-
