@@ -1,24 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 12:34:27 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/13 14:53:25 by naadou           ###   ########.fr       */
+/*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
+/*   Updated: 2023/12/13 14:52:44 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	main(void)
+int	maps_height(char *map)
 {
-	int		fd;
-	char	*map;
-	t_data	data;
+	int	i;
 
-	fd = open ("text.ber", O_RDONLY);
-	map = get_next_line(fd);
-	window_creation(maps_width(map) * 10, maps_height(map) * 10, data);
+	i = 1;
+	while (map[i])
+	{
+		if (map[i] == '\n')
+			count++;
+		i++;
+	}
+	return (i);
+}
+
+int	maps_width(char *map)
+{
+	int	i;
+
+	i = 1;
+	while (map[i] != '\n')
+		i++;
+	return (i);
+}
+
+void	window_creation(int w, int h, t_data data)
+{
+	data.mlx = mlx_init();
+	data.window = mlx_new_window(data.mlx, w, h, "so_long");
 }
