@@ -17,3 +17,5 @@ you can see a framework as a template for the work you re trynna do, it has the 
 the difference between a library and a framework is that you controle when you can use functions from that library it means you're in controle but when it cames to a framework just like what is said in the deffinition its a template so you gotta follow what is said in that template and do it so it means it controls how the work is gonna be done.  (https://www.freecodecamp.org/news/the-difference-between-a-framework-and-a-library-bd133054023f/)
 - OpenGl:
 - AppKit:
+## MiniLibx library
+this is gonna be a mini tutorial to just get you started and not be so confused in the begining of this project. *(amma be listing some ressources along the way)*
