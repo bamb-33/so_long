@@ -6,12 +6,12 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/14 14:56:08 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/14 18:12:34 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
-#define HEADER_H
+# define HEADER_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -20,7 +20,15 @@
 # include <stdio.h>
 # include <string.h>
 
-typedef struct	s_img_data {
+# include <mlx.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <fcntl.h>
+# include <stddef.h>
+# include <stdlib.h>
+# include <limits.h>
+
+typedef struct s_img_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -29,27 +37,17 @@ typedef struct	s_img_data {
 }				t_img_data;
 
 typedef struct s_args {
-	void	*mlx;
-	void	*mlx_window;
+	void		*mlx;
+	void		*mlx_window;
 	t_img_data	img_data;
-} t_args ;
-
-
-# include <mlx.h>
-# include <unistd.h>
-#include <fcntl.h>
-# include <fcntl.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <limits.h>
-
+}	t_args;
 
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2, int len_read);
 char	*get_next_line(int fd);
 
-int	maps_height(char *map);
-int	maps_width(char *map);
+int		maps_height(char *map);
+int		maps_width(char *map);
 void	window_creation(char *map, t_args data);
 
 void	map_generator(char *map);

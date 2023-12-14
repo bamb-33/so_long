@@ -6,14 +6,12 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:17:43 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/13 20:07:11 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/14 18:10:27 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-
-
 
 static int	f1(char **buffer, char **tmp, int i)
 {
@@ -37,7 +35,7 @@ static int	f1(char **buffer, char **tmp, int i)
 
 static int	allocation(char **tmp, int fd)
 {
-	if (BUFFER_SIZE + 1  < 0 || fd == -1 || BUFFER_SIZE > INT_MAX)
+	if (BUFFER_SIZE + 1 < 0 || fd == -1 || BUFFER_SIZE > INT_MAX)
 		return (0);
 	*tmp = (char *) malloc (sizeof(char) * (BUFFER_SIZE + 1));
 	if (!(*tmp))
@@ -54,8 +52,8 @@ static int	allocation(char **tmp, int fd)
 char	*get_next_line(int fd)
 {
 	char	*buffer;
-	char		*tmp;
-	int			i;
+	char	*tmp;
+	int		i;
 
 	buffer = NULL;
 	if (allocation(&tmp, fd) == 0)
