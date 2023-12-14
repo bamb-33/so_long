@@ -4,7 +4,8 @@
 CC = cc
 CFLAGS =
 
-SRC = main.c window.c Get-Next-Line/get_next_line.c Get-Next-Line/get_next_line_utils.c
+SRC = main.c window.c Get-Next-Line/get_next_line.c Get-Next-Line/get_next_line_utils.c \
+		map_generator.c
 OBJ = $(SRC:.c=.o)
 NAME = so_long.a
 
@@ -12,6 +13,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	ar -rcs $(NAME) $(OBJ)
+	cc -I /usr/local/include main.c -L /usr/local/bin/  -lmlx -framework OpenGL -framework AppKit so_long.a && ./a.out
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
