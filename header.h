@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/14 18:12:34 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/15 15:48:24 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int		maps_height(char *map);
 int		maps_width(char *map);
 void	window_creation(char *map, t_args data);
 
-void	map_generator(char *map);
+void	pixels(char *map, t_args data);
 
 #endif
