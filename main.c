@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:34:27 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/16 21:04:34 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/16 21:45:14 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(void)
 	i = 0;
 	map = get_next_line(fd);
 	data.map_arr = ft_split(map, '\n');
+	for (int j = 0; data.map_arr[j] ; j++)
+		printf("%s\n", data.map_arr[j]);
 	if (parsing(map) == 0)
 	{
 		printf("INVALID MAP\n");

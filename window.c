@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/16 21:18:49 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:02:08 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	direction_movement(char c, t_args *data, int w, int h)
 	}
 	if (c == 'w')
 	{
+		if (data->map_arr[(c_position[0] / 50) - 1][c_position[1] / 35] == '1')
+			return ;
 		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
 		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
 		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
@@ -58,6 +60,8 @@ void	direction_movement(char c, t_args *data, int w, int h)
 	}
 	if (c == 's')
 	{
+		if (data->map_arr[(c_position[0] / 50) + 1][c_position[1] / 35] == '1')
+			return ;
 		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
 		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
 		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
@@ -68,6 +72,8 @@ void	direction_movement(char c, t_args *data, int w, int h)
 	}
 	if (c == 'd')
 	{
+		if (data->map_arr[c_position[0] / 50][(c_position[1] / 35) + 1] == '1')
+			return ;
 		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
 		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
 		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
@@ -78,6 +84,8 @@ void	direction_movement(char c, t_args *data, int w, int h)
 	}
 	if (c == 'a')
 	{
+		if (data->map_arr[c_position[0] / 50][(c_position[1] / 35) - 1] == '1')
+			return ;
 		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
 		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
 		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
@@ -86,6 +94,7 @@ void	direction_movement(char c, t_args *data, int w, int h)
 		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/eye_of_ender.xpm", &w, &h);
 		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
 	}
+	//mlx_string_put(data->mlx, data->mlx_window, 100, 100, 16773120, "ain't no way");
 }
 
 int	key_hook(int keycode, t_args *data)
