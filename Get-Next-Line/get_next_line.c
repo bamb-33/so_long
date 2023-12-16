@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:17:43 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/14 18:10:27 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/16 16:13:59 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	f1(char **buffer, char **tmp, int i)
 		free(*tmp);
 		return (1);
 	}
-	*buffer = ft_strjoin(*buffer, *tmp, i);
+	*buffer = strjoin(*buffer, *tmp, i);
 	if (!(*buffer))
 		return (0);
 	return (-1);

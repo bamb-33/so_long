@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:22:57 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/13 14:47:54 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/16 16:13:28 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <limits.h>
 
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2, int len_read);
+char	*strjoin(char *s1, char *s2, int len_read);
 char	*get_next_line(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:54:47 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/13 11:58:06 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/16 16:13:36 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*glue(char *s1, char *s2, char *p, int len_read)
 	return (p);
 }
 
-char	*ft_strjoin(char *s1, char *s2, int len_read)
+char	*strjoin(char *s1, char *s2, int len_read)
 {
 	char	*p;
 	int		i;
