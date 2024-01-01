@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/16 19:12:02 by naadou           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:13:57 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <limits.h>
-# include "libft/libft.h"
+# include "Libft/libft.h"
 # include "Get-Next-Line/get_next_line.h"
 
 typedef struct s_img_data {
