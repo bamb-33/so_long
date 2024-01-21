@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:29:33 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/16 21:04:13 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:16:21 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,31 @@
 
 int	*starting_position(char **map_arr)
 {
-	int	r;
-	int	c;
+	int	w;
+	int	h;
 	int	*arr;
 
-	r = 0;
+	w = 0;
 	arr = (int *) malloc (2 * sizeof(int));
-	while (map_arr[r])
+	while (map_arr[w])
 	{
-		c = 0;
-		while (map_arr[r][c])
+		h = 0;
+		while (map_arr[w][h])
 		{
-			if (map_arr[r][c] == 'P')
+			if (map_arr[w][h] == 'P')
 			{
-				arr[0] = r * 50;
-				arr[1] = c * 35;
+				arr[0] = w;
+				arr[1] = h;
 				return (arr);
 			}
-			c++;
+			h++;
 		}
-		r++;
+		w++;
 	}
 	return (0);
 }
 
-void	pixels(char *map, t_args data, int w, int h)
+void	pixels(char *map, t_data data, int w, int h)
 {
 	int	i;
 	int	j;
@@ -52,24 +52,24 @@ void	pixels(char *map, t_args data, int w, int h)
 	while (map[i])
 	{
 		if (map[i] == '0')
-			data.img_data.img[x][j] = mlx_xpm_file_to_image(data.mlx, "map_blocs/dirt.xpm", &w, &h);
+			data.img_d.img[x][j] = mlx_xpm_file_to_image(data.mlx, "blocs/0.xpm", &w, &h);
 		else if (map[i] == '1')
-			data.img_data.img[x][j] = mlx_xpm_file_to_image(data.mlx, "map_blocs/obsedian.xpm", &w, &h);
+			data.img_d.img[x][j] = mlx_xpm_file_to_image(data.mlx, "blocs/1.xpm", &w, &h);
 		else if (map[i] == 'C')
-			data.img_data.img[x][j] = mlx_xpm_file_to_image(data.mlx, "map_blocs/apple.xpm", &w, &h);
+			data.img_d.img[x][j] = mlx_xpm_file_to_image(data.mlx, "blocs/C.xpm", &w, &h);
 		else if (map[i] == 'E')
-			data.img_data.img[x][j] = mlx_xpm_file_to_image(data.mlx, "map_blocs/dirt.xpm", &w, &h);
+			data.img_d.img[x][j] = mlx_xpm_file_to_image(data.mlx, "blocs/E.xpm", &w, &h);
 		else if (map[i] == 'P')
-			data.img_data.img[x][j] = mlx_xpm_file_to_image(data.mlx, "map_blocs/eye_of_ender.xpm", &w, &h);
+			data.img_d.img[x][j] = mlx_xpm_file_to_image(data.mlx, "blocs/P.xpm", &w, &h);
 		if (map[i] == '\n')
 		{
 			j = 0;
-			h_v2 += 50;
+			h_v2 += 64;
 			x++;
 		}
 		else
 		{
-			mlx_put_image_to_window(data.mlx, data.mlx_window, data.img_data.img[x][j], (w * j), h_v2);
+			mlx_put_image_to_window(data.mlx, data.mlx_window, data.img_d.img[x][j], (w * j), h_v2);
 			j++;
 		}
 		i++;

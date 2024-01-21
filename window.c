@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2023/12/16 22:02:08 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:25:42 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,90 +38,123 @@ int	maps_width(char *map)
 	return (i);
 }
 
-void	direction_movement(char c, t_args *data, int w, int h)
+void	direction_movement(char move, t_data *data, int w, int h)
 {
-	static int	*c_position;
+	int			*p;
+	static int	r;
+	static int	c;
 
-	if (c_position == NULL)
+	if (!r && !c)
 	{
-		c_position = starting_position(data->map_arr);
+		p = starting_position(data->map);
+		r = p[0];
+		c = p[1];
 	}
-	if (c == 'w')
+	if (move == 'w')
 	{
-		if (data->map_arr[(c_position[0] / 50) - 1][c_position[1] / 35] == '1')
+		if (data->map[r - 1][c] == '1')
 			return ;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
-		c_position[0] -= 50;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/eye_of_ender.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
+		if (data->map[r - 1][c] == 'C')
+			data->map[r - 1][c] = '0';
+		if (data->map[r - 1][c] == 'E' && collectibles_check(data->map))
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		r -= 1;
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
-	if (c == 's')
+	if (move == 's')
 	{
-		if (data->map_arr[(c_position[0] / 50) + 1][c_position[1] / 35] == '1')
+		if (data->map[r + 1][c] == '1')
 			return ;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
-		c_position[0] += 50;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/eye_of_ender.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
+		if (data->map[r + 1][c] == 'C')
+			data->map[r + 1][c] = '0';
+		if (data->map[r + 1][c] == 'E' && collectibles_check(data->map))
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		r += 1;
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
-	if (c == 'd')
+	if (move == 'd')
 	{
-		if (data->map_arr[c_position[0] / 50][(c_position[1] / 35) + 1] == '1')
+		if (data->map[r][c + 1] == '1')
 			return ;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
-		c_position[1] += 35;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/eye_of_ender.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
+		if (data->map[r][c + 1] == 'C')
+			data->map[r][c + 1] = '0';
+		if (data->map[r][c + 1] == 'E' && collectibles_check(data->map))
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		c += 1;
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
-	if (c == 'a')
+	if (move == 'a')
 	{
-		if (data->map_arr[c_position[0] / 50][(c_position[1] / 35) - 1] == '1')
+		if (data->map[r][c - 1] == '1')
 			return ;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/dirt.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
-		c_position[1] -= 35;
-		mlx_destroy_image(data->mlx, data->img_data.img[c_position[0] / 50][c_position[1] / 35]);
-		data->img_data.img[c_position[0] / 50][c_position[1] / 35] = mlx_xpm_file_to_image(data->mlx, "map_blocs/eye_of_ender.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_data.img[c_position[0] / 50][c_position[1] / 35], c_position[1], c_position[0]);
+		if (data->map[r][c - 1] == 'C')
+			data->map[r][c - 1] = '0';
+		if (data->map[r][c - 1] == 'E' && collectibles_check(data->map))
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		c -= 1;
+		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
+		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
+		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
-	//mlx_string_put(data->mlx, data->mlx_window, 100, 100, 16773120, "ain't no way");
 }
 
-int	key_hook(int keycode, t_args *data)
+int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == 53) //ESC
+	{
 		mlx_destroy_window(data->mlx, data->mlx_window);
+		exit (0);
+	}
 	if (keycode == 126) // up
-		direction_movement('w', data, 35, 50);
+		direction_movement('w', data, 64, 64);
 	if (keycode == 125) // down
-		direction_movement('s', data, 35, 50);
+		direction_movement('s', data, 64, 64);
 	if (keycode == 124) // right
-		direction_movement('d', data, 35, 50);
+		direction_movement('d', data, 64, 64);
 	if (keycode == 123) // left
-		direction_movement('a', data, 35, 50);
+		direction_movement('a', data, 64, 64);
 	return (0);
 }
 
-void	window_creation(char *map, t_args data)
+void	window_creation(char *map, t_data data)
 {
 	int	w;
 	int	h;
-	int	*starting_position;
 
 	w = maps_width(map);
 	h = maps_height(map);
-	data.mlx_window = mlx_new_window(data.mlx, (w * 35), (h * 50), "so_long");
-	pixels(map, data, 35, 50);
+	data.mlx_window = mlx_new_window(data.mlx, (w * 64), (h * 64), "so_long");
+	pixels(map, data, 64, 64);
 	mlx_key_hook(data.mlx_window, key_hook, &data);
 	mlx_loop(data.mlx);
 }
