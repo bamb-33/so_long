@@ -6,14 +6,14 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 20:20:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/21 20:22:24 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/26 17:06:06 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int collectibles_check(char **map)
+int	collectibles_check(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])

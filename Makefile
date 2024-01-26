@@ -32,7 +32,7 @@ SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_is
 	   libft/ft_memcmp.c libft/ft_memchr.c libft/ft_bzero.c libft/ft_calloc.c libft/ft_striteri.c \
 	   libft/get_next_line_utils.c libft/get_next_line.c
 
-SRC = main.c window.c map/map_generator.c map/map_checker.c collectibles_check.c
+SRC = main.c window.c map/map_generator.c map/map_checker.c collectibles_check.c map/map_validity.c movement.c
 
 SRC_B = 
 

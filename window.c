@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/21 20:25:42 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/26 17:41:58 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	maps_width(char *map)
 	return (i);
 }
 
-void	direction_movement(char move, t_data *data, int w, int h)
+void	direction_movement(char move, t_data *data)
 {
 	int			*p;
 	static int	r;
@@ -54,95 +54,47 @@ void	direction_movement(char move, t_data *data, int w, int h)
 	{
 		if (data->map[r - 1][c] == '1')
 			return ;
-		if (data->map[r - 1][c] == 'C')
-			data->map[r - 1][c] = '0';
-		if (data->map[r - 1][c] == 'E' && collectibles_check(data->map))
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		up(data, data->img_d.img, r, c);
 		r -= 1;
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
 	if (move == 's')
 	{
 		if (data->map[r + 1][c] == '1')
 			return ;
-		if (data->map[r + 1][c] == 'C')
-			data->map[r + 1][c] = '0';
-		if (data->map[r + 1][c] == 'E' && collectibles_check(data->map))
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		down(data, data->img_d.img, r, c);
 		r += 1;
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
 	if (move == 'd')
 	{
 		if (data->map[r][c + 1] == '1')
 			return ;
-		if (data->map[r][c + 1] == 'C')
-			data->map[r][c + 1] = '0';
-		if (data->map[r][c + 1] == 'E' && collectibles_check(data->map))
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		left(data, data->img_d.img, r, c);
 		c += 1;
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
 	if (move == 'a')
 	{
 		if (data->map[r][c - 1] == '1')
 			return ;
-		if (data->map[r][c - 1] == 'C')
-			data->map[r][c - 1] = '0';
-		if (data->map[r][c - 1] == 'E' && collectibles_check(data->map))
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/0.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
+		right(data, data->img_d.img, r, c);
 		c -= 1;
-		mlx_destroy_image(data->mlx, data->img_d.img[r][c]);
-		data->img_d.img[r][c] = mlx_xpm_file_to_image(data->mlx, "blocs/P.xpm", &w, &h);
-		mlx_put_image_to_window(data->mlx, data->mlx_window, data->img_d.img[r][c], c * 64, r * 64);
 	}
 }
 
 int	key_hook(int keycode, t_data *data)
 {
-	if (keycode == 53) //ESC
+	if (keycode == 53)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_window);
 		exit (0);
 	}
-	if (keycode == 126) // up
-		direction_movement('w', data, 64, 64);
-	if (keycode == 125) // down
-		direction_movement('s', data, 64, 64);
-	if (keycode == 124) // right
-		direction_movement('d', data, 64, 64);
-	if (keycode == 123) // left
-		direction_movement('a', data, 64, 64);
+	if (keycode == 126)
+		direction_movement('w', data);
+	if (keycode == 125)
+		direction_movement('s', data);
+	if (keycode == 124)
+		direction_movement('d', data);
+	if (keycode == 123)
+		direction_movement('a', data);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/21 20:22:41 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/26 17:41:18 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,28 @@ typedef struct s_data
 	t_img_d	img_d;
 }	t_data;
 
+typedef struct s_node
+{
+	int		*content;
+	struct s_node	*next;
+	struct s_node	*previous;
+}	t_node;
+
 //windows
 int		maps_height(char *map);
 int		maps_width(char *map);
-void	direction_movement(char c, t_data *data, int w, int h);
+void	direction_movement(char c, t_data *data);
 void	window_creation(char *map, t_data data);
+//movement
+void	up(t_data *data, void ***img, int r, int c);
+void	down(t_data *data, void ***img, int r, int c);
+void	left(t_data *data, void ***img, int r, int c);
+void	right(t_data *data, void ***img, int r, int c);
 //map
 int		*starting_position(char **map_arr);
 void	pixels(char *map, t_data data, int w, int h);
 bool	parsing(char *map);
+void	map_validity(char **hm_map, char **map, int *p, t_node *node);
 
 // collectibles_check
 int collectibles_check(char **map);
