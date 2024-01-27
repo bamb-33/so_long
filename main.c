@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:34:27 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/26 16:58:36 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/27 18:11:40 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ int	main(int ac, char *av[])
 		return (0);
 	}
 	d.mlx = mlx_init();
-	d.img_d.img = (void ***) malloc (maps_height(map) * sizeof (void **));
-	while (i < maps_height(map))
-		d.img_d.img[i++] = (void **) malloc (maps_width(map) * sizeof (void *));
+	d.img_d.img = (void ***) malloc (6 * sizeof (void **));
+	while (i < 5)
+		d.img_d.img[i++] = (void **) malloc (1 * sizeof (void *));
+	d.img_d.img[i++] = (void **) malloc (7 * sizeof (void *));
+	images_value(d.img_d.img, d);
 	window_creation(map, d);
 }

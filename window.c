@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/26 17:41:58 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/27 22:21:22 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,43 +41,76 @@ int	maps_width(char *map)
 void	direction_movement(char move, t_data *data)
 {
 	int			*p;
-	static int	r;
-	static int	c;
+	int w = 64;
+	int h = 64;
+	// char		*str;
+	// static int	i;
 
-	if (!r && !c)
+	p = starting_position(data->map);
+	if (collectibles_check(data->map) == 1)
 	{
-		p = starting_position(data->map);
-		r = p[0];
-		c = p[1];
+		data->img_d.img[3][0] = mlx_xpm_file_to_image(data->mlx, "blocs/E1.xpm",&w , &h);
 	}
 	if (move == 'w')
 	{
-		if (data->map[r - 1][c] == '1')
+		if (data->map[p[0] - 1][p[1]] == 'E' && collectibles_check(data->map) == 1)
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		if (data->map[p[0] - 1][p[1]] == 'G')
+			exit(0);
+		if (data->map[p[0] - 1][p[1]] == '1' || data->map[p[0] - 1][p[1]] == 'E')
 			return ;
-		up(data, data->img_d.img, r, c);
-		r -= 1;
+		data->map[p[0] - 1][p[1]] = 'P';
+		data->map[p[0]][p[1]] = '0';
 	}
 	if (move == 's')
 	{
-		if (data->map[r + 1][c] == '1')
+		if (data->map[p[0] + 1][p[1]] == 'E' && collectibles_check(data->map) == 1)
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		if (data->map[p[0] + 1][p[1]] == 'G')
+			exit(0);
+		if (data->map[p[0] + 1][p[1]] == '1' || data->map[p[0] + 1][p[1]] == 'E')
 			return ;
-		down(data, data->img_d.img, r, c);
-		r += 1;
+		data->map[p[0] + 1][p[1]] = 'P';
+		data->map[p[0]][p[1]] = '0';
 	}
 	if (move == 'd')
 	{
-		if (data->map[r][c + 1] == '1')
+		if (data->map[p[0]][p[1] + 1] == 'E' && collectibles_check(data->map) == 1)
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		if (data->map[p[0]][p[1] + 1] == 'G')
+			exit(0);
+		if (data->map[p[0]][p[1] + 1] == '1' || data->map[p[0]][p[1] + 1] == 'E')
 			return ;
-		left(data, data->img_d.img, r, c);
-		c += 1;
+		data->map[p[0]][p[1] + 1] = 'P';
+		data->map[p[0]][p[1]] = '0';
 	}
 	if (move == 'a')
 	{
-		if (data->map[r][c - 1] == '1')
+		if (data->map[p[0]][p[1] - 1] == 'E' && collectibles_check(data->map) == 1)
+		{
+			printf("YOU WON!!!!");
+			exit(0);
+		}
+		if (data->map[p[0]][p[1] - 1] == 'G')
+			exit(0);
+		if (data->map[p[0]][p[1] - 1] == '1' || data->map[p[0]][p[1] - 1] == 'E')
 			return ;
-		right(data, data->img_d.img, r, c);
-		c -= 1;
+		data->map[p[0]][p[1] - 1] = 'P';
+		data->map[p[0]][p[1]] = '0';
 	}
+	// i++;
+	// str = ft_itoa(i);
+	// mlx_string_put(data->mlx, data->mlx_window, 0, 0, 16776960, str);
+	// free(str);
 }
 
 int	key_hook(int keycode, t_data *data)
@@ -106,7 +139,7 @@ void	window_creation(char *map, t_data data)
 	w = maps_width(map);
 	h = maps_height(map);
 	data.mlx_window = mlx_new_window(data.mlx, (w * 64), (h * 64), "so_long");
-	pixels(map, data, 64, 64);
 	mlx_key_hook(data.mlx_window, key_hook, &data);
+	mlx_loop_hook(data.mlx, pixels, &data);
 	mlx_loop(data.mlx);
 }
