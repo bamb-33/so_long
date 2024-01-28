@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/27 22:21:22 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/28 12:14:59 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,8 @@ void	direction_movement(char move, t_data *data)
 	int			*p;
 	int w = 64;
 	int h = 64;
-	// char		*str;
-	// static int	i;
 
 	p = starting_position(data->map);
-	if (collectibles_check(data->map) == 1)
-	{
-		data->img_d.img[3][0] = mlx_xpm_file_to_image(data->mlx, "blocs/E1.xpm",&w , &h);
-	}
 	if (move == 'w')
 	{
 		if (data->map[p[0] - 1][p[1]] == 'E' && collectibles_check(data->map) == 1)
@@ -59,7 +53,10 @@ void	direction_movement(char move, t_data *data)
 			exit(0);
 		}
 		if (data->map[p[0] - 1][p[1]] == 'G')
+		{
+			printf("YOU DIED LIL NIGGA\n");
 			exit(0);
+		}
 		if (data->map[p[0] - 1][p[1]] == '1' || data->map[p[0] - 1][p[1]] == 'E')
 			return ;
 		data->map[p[0] - 1][p[1]] = 'P';
@@ -73,7 +70,10 @@ void	direction_movement(char move, t_data *data)
 			exit(0);
 		}
 		if (data->map[p[0] + 1][p[1]] == 'G')
+		{
+			printf("YOU DIED LIL NIGGA\n");
 			exit(0);
+		}
 		if (data->map[p[0] + 1][p[1]] == '1' || data->map[p[0] + 1][p[1]] == 'E')
 			return ;
 		data->map[p[0] + 1][p[1]] = 'P';
@@ -87,7 +87,10 @@ void	direction_movement(char move, t_data *data)
 			exit(0);
 		}
 		if (data->map[p[0]][p[1] + 1] == 'G')
+		{
+			printf("YOU DIED LIL NIGGA\n");
 			exit(0);
+		}
 		if (data->map[p[0]][p[1] + 1] == '1' || data->map[p[0]][p[1] + 1] == 'E')
 			return ;
 		data->map[p[0]][p[1] + 1] = 'P';
@@ -101,16 +104,20 @@ void	direction_movement(char move, t_data *data)
 			exit(0);
 		}
 		if (data->map[p[0]][p[1] - 1] == 'G')
+		{
+			printf("YOU DIED LIL NIGGA\n");
 			exit(0);
+		}
 		if (data->map[p[0]][p[1] - 1] == '1' || data->map[p[0]][p[1] - 1] == 'E')
 			return ;
 		data->map[p[0]][p[1] - 1] = 'P';
 		data->map[p[0]][p[1]] = '0';
 	}
-	// i++;
-	// str = ft_itoa(i);
-	// mlx_string_put(data->mlx, data->mlx_window, 0, 0, 16776960, str);
-	// free(str);
+	if (move == 'A')
+	{
+		data->player_status = -1;
+	}
+	data->mov_counter++;
 }
 
 int	key_hook(int keycode, t_data *data)
@@ -128,6 +135,8 @@ int	key_hook(int keycode, t_data *data)
 		direction_movement('d', data);
 	if (keycode == 123)
 		direction_movement('a', data);
+	if (keycode == 49)
+		direction_movement('A', data);
 	return (0);
 }
 

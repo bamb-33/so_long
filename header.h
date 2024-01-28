@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/27 18:11:43 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/28 14:38:02 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_window;
 	char	**map;
+	int		mov_counter;
+	int		player_status;
+	int		*enemy_status;
 	t_img_d	img_d;
 }	t_data;
 
@@ -74,5 +77,7 @@ void	images_value(void ***img, t_data data);
 
 // collectibles_check
 int collectibles_check(char **map);
+//map_generator
+int	enemy_cont(char **map);
 
 #endif

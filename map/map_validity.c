@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:26:44 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/27 20:38:26 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/28 14:49:12 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ t_node	init(char **hm_map, char **map, int *p, t_node *node)
 	hm_map[p[0]][p[1]] = '1';
 	while (i < 4)
 		new_node.content[i++] = 0;
-	if (map[p[0] - 1][p[1]] != 'G' && map[p[0] - 1][p[1]] != '1' && hm_map[p[0] - 1][p[1]] != '1')
+	if (map[p[0] - 1][p[1]] != '1' && hm_map[p[0] - 1][p[1]] != '1')
 		new_node.content[0] = 1;
-	if (map[p[0] + 1][p[1]] != 'G' && map[p[0] + 1][p[1]] != '1' && hm_map[p[0] + 1][p[1]] != '1')
+	if (map[p[0] + 1][p[1]] != '1' && hm_map[p[0] + 1][p[1]] != '1')
 		new_node.content[1] = 1;
-	if (map[p[0]][p[1] - 1] != 'G' && map[p[0]][p[1] - 1] != '1' && hm_map[p[0]][p[1] - 1] != '1')
+	if (map[p[0]][p[1] - 1] != '1' && hm_map[p[0]][p[1] - 1] != '1')
 		new_node.content[2] = 1;
-	if (map[p[0]][p[1] + 1] != 'G' && map[p[0]][p[1] + 1] != '1' && hm_map[p[0]][p[1] + 1] != '1')
+	if (map[p[0]][p[1] + 1] != '1' && hm_map[p[0]][p[1] + 1] != '1')
 		new_node.content[3] = 1;
 	new_node.content[4] = p[0];
 	new_node.content[5] = p[1];
