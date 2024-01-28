@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/28 12:14:59 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/28 15:01:57 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,83 +40,16 @@ int	maps_width(char *map)
 
 void	direction_movement(char move, t_data *data)
 {
-	int			*p;
-	int w = 64;
-	int h = 64;
-
-	p = starting_position(data->map);
 	if (move == 'w')
-	{
-		if (data->map[p[0] - 1][p[1]] == 'E' && collectibles_check(data->map) == 1)
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		if (data->map[p[0] - 1][p[1]] == 'G')
-		{
-			printf("YOU DIED LIL NIGGA\n");
-			exit(0);
-		}
-		if (data->map[p[0] - 1][p[1]] == '1' || data->map[p[0] - 1][p[1]] == 'E')
-			return ;
-		data->map[p[0] - 1][p[1]] = 'P';
-		data->map[p[0]][p[1]] = '0';
-	}
+		up(data);
 	if (move == 's')
-	{
-		if (data->map[p[0] + 1][p[1]] == 'E' && collectibles_check(data->map) == 1)
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		if (data->map[p[0] + 1][p[1]] == 'G')
-		{
-			printf("YOU DIED LIL NIGGA\n");
-			exit(0);
-		}
-		if (data->map[p[0] + 1][p[1]] == '1' || data->map[p[0] + 1][p[1]] == 'E')
-			return ;
-		data->map[p[0] + 1][p[1]] = 'P';
-		data->map[p[0]][p[1]] = '0';
-	}
+		down(data);
 	if (move == 'd')
-	{
-		if (data->map[p[0]][p[1] + 1] == 'E' && collectibles_check(data->map) == 1)
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		if (data->map[p[0]][p[1] + 1] == 'G')
-		{
-			printf("YOU DIED LIL NIGGA\n");
-			exit(0);
-		}
-		if (data->map[p[0]][p[1] + 1] == '1' || data->map[p[0]][p[1] + 1] == 'E')
-			return ;
-		data->map[p[0]][p[1] + 1] = 'P';
-		data->map[p[0]][p[1]] = '0';
-	}
+		right(data);
 	if (move == 'a')
-	{
-		if (data->map[p[0]][p[1] - 1] == 'E' && collectibles_check(data->map) == 1)
-		{
-			printf("YOU WON!!!!");
-			exit(0);
-		}
-		if (data->map[p[0]][p[1] - 1] == 'G')
-		{
-			printf("YOU DIED LIL NIGGA\n");
-			exit(0);
-		}
-		if (data->map[p[0]][p[1] - 1] == '1' || data->map[p[0]][p[1] - 1] == 'E')
-			return ;
-		data->map[p[0]][p[1] - 1] = 'P';
-		data->map[p[0]][p[1]] = '0';
-	}
+		left(data);
 	if (move == 'A')
-	{
 		data->player_status = -1;
-	}
 	data->mov_counter++;
 }
 

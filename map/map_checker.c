@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:38:29 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/26 17:25:38 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/28 20:25:10 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static bool	rectangular_check(char *map)
 
 	i = 0;
 	w = 0;
-	if (maps_width(map) <= maps_height(map))
+	if (maps_width(map) == maps_height(map))
 		return (0);
 	while (map[i])
 	{
