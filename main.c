@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:34:27 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/28 19:38:56 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 16:04:53 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int ac, char *av[])
 	if (parsing(map) == 0)
 	{
 		ft_putendl_fd("Error", 2);
+		free(map);
 		return (1);
 	}
 	d = initi(map);

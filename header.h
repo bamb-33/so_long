@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/28 19:45:10 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 15:58:02 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ typedef struct s_img_d
 	void	***img;
 }				t_img_d;
 
+typedef struct s_free
+{
+	int	*i_add;
+	int	*j_add;
+	int	**r_l_add;
+	int	*k_add;
+}				t_free;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -48,6 +56,7 @@ typedef struct s_data
 	int		player_status;
 	int		*enemy_status;
 	t_img_d	img_d;
+	t_free	to_free_in_the_end;
 }	t_data;
 
 typedef struct s_node
@@ -69,6 +78,7 @@ void	right(t_data *data);
 //map
 bool	parsing(char *map);
 void	map_validity(char **hm_map, char **map, int *p, t_node *node);
+bool	path_check(char **map);
 //image-values
 void	images_value(void ***img, t_data data, int w, int h);
 
@@ -78,11 +88,14 @@ int		collectibles_check(t_data *d);
 int		*starting_position(char **map_arr);
 int		enemy_count(char **map);
 int		pixels(t_data *data);
-int		get_index(char **map, int w, int h);
+int		get_enemy_index(char **map, int w, int h);
 
 //player_sprite
 void	player_sprites(void ***img, t_data *d, int w, int h);
 //enemy_sprite
 void	enemy_sprites(void ***img, t_data *d, int w, int h);
+//free
+void	free_all(t_data *d);
+void	free_two_d_array(char **strs);
 
 #endif

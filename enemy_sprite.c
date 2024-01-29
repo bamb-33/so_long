@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:31:59 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/28 20:37:20 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 11:48:25 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	enemy_movement(t_data *d, int i[], int right, int left)
 		if (d->map[i[0]][i[1] + 1] == 'P')
 		{
 			printf("YOU DIED LIL NIGGA\n");
+			free_all(d);
+			mlx_clear_window(d->mlx, d->mlx_window);
 			exit(0);
 		}
 		d->map[i[0]][i[1]] = '0';
@@ -57,6 +59,8 @@ void	enemy_movement(t_data *d, int i[], int right, int left)
 		if (d->map[i[0]][i[1] - 1] == 'P')
 		{
 			printf("YOU DIED LIL NIGGA\n");
+			free_all(d);
+			mlx_clear_window(d->mlx, d->mlx_window);
 			exit(0);
 		}
 		d->map[i[0]][i[1]] = '0';
@@ -76,8 +80,9 @@ void	enemy_dying_sprite(t_data *d, void ***img, int w, int h)
 		k = (int *) malloc (sizeof(int) * enemy_count(d->map));
 		while (i < enemy_count(d->map))
 			k[i++] = 0;
+		d->to_free_in_the_end.k_add = k;
 	}
-	i = get_index(d->map, w / 64, h / 64);
+	i = get_enemy_index(d->map, w / 64, h / 64);
 	img_i = (k[i] / 10) + 5;
 	mlx_put_image_to_window(d->mlx, d->mlx_window, img[0][0], w, h);
 	if (k[i] == 69)
@@ -107,6 +112,9 @@ void	allocation(int **i, int **j, int ***r_l, t_data *d)
 		(*r_l)[0][z] = 1;
 		z++;
 	}
+	d->to_free_in_the_end.i_add = *i;
+	d->to_free_in_the_end.j_add = *j;
+	d->to_free_in_the_end.r_l_add = *r_l;
 }
 
 void	enemy_sprites(void ***img, t_data *d, int w, int h)
@@ -118,7 +126,7 @@ void	enemy_sprites(void ***img, t_data *d, int w, int h)
 
 	if (!i && !j && !r_l)
 		allocation(&i, &j, &r_l, d);
-	p = get_index(d->map, w / 64, h / 64);
+	p = get_enemy_index(d->map, w / 64, h / 64);
 	if (d->enemy_status[p] == -1)
 	{
 		enemy_dying_sprite(d, img, w, h);
@@ -130,9 +138,9 @@ void	enemy_sprites(void ***img, t_data *d, int w, int h)
 		enemy_movement(d, (int []){h / 64, w / 64}, r_l[0][p], r_l[1][p]);
 		i[p] = 0;
 	}
-	if (j[p] == 349)
+	if (j[p] == 174)
 		j[p] = -1;
-	mlx_put_image_to_window(d->mlx, d->mlx_window, img[5][(j[p] / 50)], w, h);
+	mlx_put_image_to_window(d->mlx, d->mlx_window, img[5][(j[p] / 25)], w, h);
 	i[p]++;
 	j[p]++;
 }

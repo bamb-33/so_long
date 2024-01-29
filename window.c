@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/28 15:01:57 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/28 20:39:47 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	window_creation(char *map, t_data data)
 
 	w = maps_width(map);
 	h = maps_height(map);
+	free(map);
 	data.mlx_window = mlx_new_window(data.mlx, (w * 64), (h * 64), "so_long");
 	mlx_key_hook(data.mlx_window, key_hook, &data);
 	mlx_loop_hook(data.mlx, pixels, &data);

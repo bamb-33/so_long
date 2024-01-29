@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:29:33 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/28 16:32:50 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 09:39:26 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	enemy_count(char **map)
 	return (count);
 }
 
-int	get_index(char **map, int w, int h)
+int	get_enemy_index(char **map, int w, int h)
 {
 	int	i;
 	int	j;
