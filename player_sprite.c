@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 15:59:06 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 13:48:52 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 21:48:25 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	enemy_detection(t_data *d)
 	int	*p;
 
 	p = starting_position(d->map);
+	if (!p)
+		free_all(d, 4);
 	if (d->map[p[0]][p[1] + 1] == 'G')
 		d->enemy_status[get_enemy_index(d->map, p[1] + 1, p[0])] = -1;
 	if (d->map[p[0]][p[1] - 1] == 'G')

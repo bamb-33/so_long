@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:31:59 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 11:48:25 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 22:02:21 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	enemy_movement(t_data *d, int i[], int right, int left)
 		if (d->map[i[0]][i[1] + 1] == 'P')
 		{
 			printf("YOU DIED LIL NIGGA\n");
-			free_all(d);
-			mlx_clear_window(d->mlx, d->mlx_window);
-			exit(0);
+			free_all(d, 4);
 		}
 		d->map[i[0]][i[1]] = '0';
 		d->map[i[0]][i[1] + 1] = 'G';
@@ -59,9 +57,7 @@ void	enemy_movement(t_data *d, int i[], int right, int left)
 		if (d->map[i[0]][i[1] - 1] == 'P')
 		{
 			printf("YOU DIED LIL NIGGA\n");
-			free_all(d);
-			mlx_clear_window(d->mlx, d->mlx_window);
-			exit(0);
+			free_all(d, 4);
 		}
 		d->map[i[0]][i[1]] = '0';
 		d->map[i[0]][i[1] - 1] = 'G';
@@ -78,6 +74,8 @@ void	enemy_dying_sprite(t_data *d, void ***img, int w, int h)
 	if (!k)
 	{
 		k = (int *) malloc (sizeof(int) * enemy_count(d->map));
+		if (!k)
+			free_all(d, 5);
 		while (i < enemy_count(d->map))
 			k[i++] = 0;
 		d->to_free_in_the_end.k_add = k;
@@ -101,16 +99,25 @@ void	allocation(int **i, int **j, int ***r_l, t_data *d)
 
 	z = 0;
 	*i = (int *) malloc (sizeof(int) * enemy_count(d->map));
+	if (!(*i))
+		free_all(d, -1);
 	*j = (int *) malloc (sizeof(int) * enemy_count(d->map));
+	if (!(*j))
+		free_all(d, 1);
 	*r_l = (int **) malloc (sizeof(int *) * 2);
+	if (!(*r_l))
+		free_all(d, 2);
 	(*r_l)[0] = (int *) malloc (sizeof(int) * enemy_count(d->map));
+	if (!(*r_l)[0])
+		free_all(d, 3);
 	(*r_l)[1] = (int *) malloc (sizeof(int) * enemy_count(d->map));
+	if (!(*r_l)[1])
+		free_all(d, 4);
 	while (z < enemy_count(d->map))
 	{
 		(*i)[z] = 0;
 		(*j)[z] = 0;
-		(*r_l)[0][z] = 1;
-		z++;
+		(*r_l)[0][z++] = 1;
 	}
 	d->to_free_in_the_end.i_add = *i;
 	d->to_free_in_the_end.j_add = *j;

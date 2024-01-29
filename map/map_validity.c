@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:26:44 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 16:03:11 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 21:45:39 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,16 @@ void	free_nodes(t_node *head)
 	}
 }
 
-t_node	*free_useless_node(t_node *node)
+t_node	*free_useless_node(t_node *node, char **hm_map, char **map, int flag)
 {
 	t_node	*previous_node;
 
+	if (flag == 1)
+	{
+		free_two_d_array(hm_map);
+		free_two_d_array(map);
+		exit(1);
+	}
 	previous_node = node->previous;
 	free(node->content);
 	free(node);
@@ -100,6 +106,8 @@ void	map_validity(char **hm_map, char **map, int *p, t_node *node)
 	t_node	*new_node;
 	t_node	*node_sent;
 
+	if (!p)
+		free_useless_node(node, hm_map, map, 1);
 	new_node = init(hm_map, map, p, node);
 	node_sent = new_node;
 	while (move(hm_map, map, p, node_sent) == 0)
@@ -112,7 +120,7 @@ void	map_validity(char **hm_map, char **map, int *p, t_node *node)
 			return ;
 		}
 		map[node_sent->content[4]][node_sent->content[5]] = '0';
-		node_sent = free_useless_node(node_sent);
+		node_sent = free_useless_node(node_sent, hm_map, map, -1);
 		map[node_sent->content[4]][node_sent->content[5]] = 'P';
 		free(p);
 		p = starting_position(map);

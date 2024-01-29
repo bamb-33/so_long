@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:57:16 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 16:46:04 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 21:58:54 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	destroy_all_imgs(t_data *d, void ***img)
 	i = 0;
 	while (i <= 13)
 		mlx_destroy_image(d->mlx, img[5][i++]);
+	i = 0;
+	while (i < 6)
+		free(d->img_d.img[i++]);
+	free(d->img_d.img);
 }
 
 void	free_two_d_array(char **strs)
@@ -57,7 +61,7 @@ int	check_if_allocated(char **map)
 	return (0);
 }
 
-int	check_for_eneymies(char **map)
+int	check_for_enemies(char **map)
 {
 	int	i;
 	int	j;
@@ -77,26 +81,25 @@ int	check_for_eneymies(char **map)
 	return (0);
 }
 
-void	free_all(t_data *d)
+void	free_all(t_data *d, int flag)
 {
-	int	i;
-
-	i = 0;
 	mlx_clear_window(d->mlx, d->mlx_window);
 	destroy_all_imgs(d, d->img_d.img);
-	while (i < 6)
-		free(d->img_d.img[i++]);
-	free(d->img_d.img);
-	if (check_for_eneymies(d->map))
+	if (check_for_enemies(d->map) && flag >= 1)
 	{
-		free(d->to_free_in_the_end.r_l_add[0]);
-		free(d->to_free_in_the_end.r_l_add[1]);
-		free(d->to_free_in_the_end.r_l_add);
 		free(d->to_free_in_the_end.i_add);
-		free(d->to_free_in_the_end.j_add);
+		if (flag >= 1)
+			free(d->to_free_in_the_end.j_add);
+		if (flag >= 2)
+			free(d->to_free_in_the_end.r_l_add);
+		if (flag >= 3)
+			free(d->to_free_in_the_end.r_l_add[0]);
+		if (flag >= 4)
+			free(d->to_free_in_the_end.r_l_add[1]);
 	}
-	if (check_if_allocated(d->map))
+	if (check_if_allocated(d->map) || flag == 5)
 		free(d->to_free_in_the_end.k_add);
 	free(d->enemy_status);
 	free_two_d_array(d->map);
+	exit(0);
 }

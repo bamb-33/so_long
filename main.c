@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:34:27 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 16:04:53 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 21:31:00 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@ t_data	initi(char *map)
 
 	i = 0;
 	d.map = ft_split(map, '\n');
+	if (!d.map)
+		exit(1);
 	d.player_status = 1;
 	d.enemy_status = (int *) malloc (sizeof(int) * enemy_count(d.map));
+	if (!d.enemy_status)
+	{
+		free_two_d_array(d.map);
+		exit(1);
+	}
 	while (i < enemy_count(d.map))
 		d.enemy_status[i++] = 1;
 	d.mov_counter = 0;
 	d.mlx = mlx_init();
-	d.img_d.img = (void ***) malloc (6 * sizeof (void **));
-	i = 0;
-	while (i < 4)
-		d.img_d.img[i++] = (void **) malloc (1 * sizeof (void *));
-	d.img_d.img[i++] = (void **) malloc (21 * sizeof (void *));
-	d.img_d.img[i++] = (void **) malloc (14 * sizeof (void *));
-	images_value(d.img_d.img, d, 64, 64);
+	images_value(&d, 64, 64);
 	return (d);
 }
 
