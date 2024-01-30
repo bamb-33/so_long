@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:38:29 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 15:27:56 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 20:40:58 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,6 @@ bool	parsing(char *map)
 
 	hm_map = ft_split(map, '\n');
 	p = starting_position(hm_map);
-	if (!p)
-	{
-		free(map);
-		exit(1);
-	}
 	if (check_walls(map) && characters_check(map) && rectangular_check(map))
 	{
 		map_two_d = ft_split(map, '\n');

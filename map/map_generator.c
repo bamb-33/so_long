@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:29:33 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 21:33:23 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 20:40:41 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 int	*starting_position(char **map_arr)
 {
-	int	w;
-	int	h;
-	int	*arr;
+	int			w;
+	int			h;
+	static int	arr[2];
 
 	w = 0;
-	arr = (int *) malloc (2 * sizeof(int));
-	if (!arr)
-		return (NULL);
 	while (map_arr[w])
 	{
 		h = 0;
