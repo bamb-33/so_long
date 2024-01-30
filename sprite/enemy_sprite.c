@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:31:59 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 15:51:20 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 20:03:49 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ void	enemy_sprites(void ***img, t_data *d, int w, int h)
 	int			p;
 
 	if (!i && !j && !r_l)
+	{
 		allocation(&i, &j, &r_l, d);
+	}
 	p = get_enemy_index(d->map, w / 64, h / 64);
 	if (d->enemy_status[p] == -1)
 	{

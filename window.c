@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/28 20:39:47 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:44:08 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	direction_movement(char move, t_data *data)
 		left(data);
 	if (move == 'A')
 		data->player_status = -1;
-	data->mov_counter++;
 }
 
 int	key_hook(int keycode, t_data *data)

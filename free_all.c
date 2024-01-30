@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:57:16 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 16:05:05 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 20:04:20 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_for_enemies(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'J')
+			if (map[i][j] == 'G')
 				return (1);
 			j++;
 		}
@@ -90,12 +90,12 @@ void	free_all(t_data *d, int flag)
 		free(d->to_free_in_the_end.i_add);
 		if (flag > 1)
 			free(d->to_free_in_the_end.j_add);
-		if (flag > 2)
-			free(d->to_free_in_the_end.r_l_add);
 		if (flag > 3)
 			free(d->to_free_in_the_end.r_l_add[0]);
 		if (flag > 4)
 			free(d->to_free_in_the_end.r_l_add[1]);
+		if (flag > 2)
+			free(d->to_free_in_the_end.r_l_add);
 	}
 	if (check_if_allocated(d->map) || flag > 5)
 		free(d->to_free_in_the_end.k_add);
