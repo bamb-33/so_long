@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 13:11:10 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:39:28 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	left(t_data *data);
 void	right(t_data *data);
 //map
 bool	parsing(char *map);
+t_node	*free_useless_node(t_node *node, char **hm_map, char **map, int flag);
+void	free_nodes(t_node *head);
 void	map_validity(char **hm_map, char **map, int *p, t_node *node);
+void	two_in_one(t_node *node, char **hm_map, char **map);
 int		valid_rout(t_node *node, char **map, char **hm_map, int *p);
 bool	path_check(char **map);
 //image-values

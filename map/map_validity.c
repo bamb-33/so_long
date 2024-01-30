@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:26:44 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 13:29:08 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:34:01 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,7 @@ void	map_validity(char **hm_map, char **map, int *p, t_node *node)
 	t_node	*node_sent;
 
 	if (!p)
-	{
-		free_nodes(node);
-		free_useless_node(node, hm_map, map, 1);
-	}
+		two_in_one(node, hm_map, map);
 	new_node = init(hm_map, map, p, node);
 	node_sent = new_node;
 	while (move(hm_map, map, p, node_sent) == 0)
@@ -125,10 +122,7 @@ void	map_validity(char **hm_map, char **map, int *p, t_node *node)
 		}
 		p = starting_position(map);
 		if (!p)
-		{
-			free_nodes(node_sent);
-			free_useless_node(node, hm_map, map, 1);
-		}
+			two_in_one(node_sent, hm_map, map);
 	}
 	free(p);
 	map_validity(hm_map, map, starting_position(map), node_sent);
