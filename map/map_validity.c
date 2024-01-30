@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:26:44 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 21:45:39 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:29:08 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_nodes(t_node *head)
 	t_node	*tmp;
 
 	i = 0;
+	if (!head)
+		return ;
 	while (head->previous)
 		head = head->previous;
 	while (head)
@@ -39,7 +41,11 @@ t_node	*free_useless_node(t_node *node, char **hm_map, char **map, int flag)
 		free_two_d_array(map);
 		exit(1);
 	}
+	if (!node->previous)
+		return (node);
+	map[node->content[4]][node->content[5]] = '0';
 	previous_node = node->previous;
+	map[previous_node->content[4]][previous_node->content[5]] = 'P';
 	free(node->content);
 	free(node);
 	return (previous_node);
@@ -56,14 +62,7 @@ t_node	*init(char **hm_map, char **map, int *p, t_node *node)
 	hm_map[p[0]][p[1]] = '1';
 	while (i < 4)
 		new_node->content[i++] = 0;
-	if (map[p[0] - 1][p[1]] != '1' && hm_map[p[0] - 1][p[1]] != '1')
-		new_node->content[0] = 1;
-	if (map[p[0] + 1][p[1]] != '1' && hm_map[p[0] + 1][p[1]] != '1')
-		new_node->content[1] = 1;
-	if (map[p[0]][p[1] - 1] != '1' && hm_map[p[0]][p[1] - 1] != '1')
-		new_node->content[2] = 1;
-	if (map[p[0]][p[1] + 1] != '1' && hm_map[p[0]][p[1] + 1] != '1')
-		new_node->content[3] = 1;
+	valid_rout(new_node, map, hm_map, p);
 	new_node->content[4] = p[0];
 	new_node->content[5] = p[1];
 	new_node->previous = node;
@@ -107,23 +106,29 @@ void	map_validity(char **hm_map, char **map, int *p, t_node *node)
 	t_node	*node_sent;
 
 	if (!p)
+	{
+		free_nodes(node);
 		free_useless_node(node, hm_map, map, 1);
+	}
 	new_node = init(hm_map, map, p, node);
 	node_sent = new_node;
 	while (move(hm_map, map, p, node_sent) == 0)
 	{
-		if (node_sent->previous == NULL || path_check(hm_map))
+		node_sent = free_useless_node(node_sent, hm_map, map, -1);
+		free(p);
+		if (node_sent->previous == NULL)
 		{
-			free(p);
+			free(node_sent->content);
+			free(node_sent);
 			free_two_d_array(map);
-			free_nodes(node_sent);
 			return ;
 		}
-		map[node_sent->content[4]][node_sent->content[5]] = '0';
-		node_sent = free_useless_node(node_sent, hm_map, map, -1);
-		map[node_sent->content[4]][node_sent->content[5]] = 'P';
-		free(p);
 		p = starting_position(map);
+		if (!p)
+		{
+			free_nodes(node_sent);
+			free_useless_node(node, hm_map, map, 1);
+		}
 	}
 	free(p);
 	map_validity(hm_map, map, starting_position(map), node_sent);

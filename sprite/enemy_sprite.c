@@ -6,34 +6,25 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:31:59 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 22:02:21 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 15:51:20 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 void	enemy_obstacles(t_data *d, int i[], int *right, int *left)
 {
-	if ((d->map[i[0]][i[1] + 1] == '1'
-		|| d->map[i[0]][i[1] + 1] == 'C'
-			|| d->map[i[0]][i[1] + 1] == 'G')
-				&& (d->map[i[0]][i[1] - 1] == '1'
-					|| d->map[i[0]][i[1] - 1] == 'C'
-						|| d->map[i[0]][i[1] - 1] == 'G'))
+	if (d->map[i[0]][i[1] + 1] != '0' && d->map[i[0]][i[1] - 1] != '0')
 	{
 		*left = 0;
 		*right = 0;
 	}
-	else if (d->map[i[0]][i[1] + 1] == '1'
-		|| d->map[i[0]][i[1] + 1] == 'C'
-			|| d->map[i[0]][i[1] + 1] == 'G')
+	else if (d->map[i[0]][i[1] + 1] != '0')
 	{
 		*left = 1;
 		*right = 0;
 	}
-	else if (d->map[i[0]][i[1] - 1] == '1'
-		|| d->map[i[0]][i[1] - 1] == 'C'
-			|| d->map[i[0]][i[1] - 1] == 'G')
+	else if (d->map[i[0]][i[1] - 1] != '0')
 	{
 		*left = 0;
 		*right = 1;
@@ -119,9 +110,7 @@ void	allocation(int **i, int **j, int ***r_l, t_data *d)
 		(*j)[z] = 0;
 		(*r_l)[0][z++] = 1;
 	}
-	d->to_free_in_the_end.i_add = *i;
-	d->to_free_in_the_end.j_add = *j;
-	d->to_free_in_the_end.r_l_add = *r_l;
+	save_variables(d, *i, *j, *r_l);
 }
 
 void	enemy_sprites(void ***img, t_data *d, int w, int h)

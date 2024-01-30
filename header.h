@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 21:31:06 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:11:10 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	right(t_data *data);
 //map
 bool	parsing(char *map);
 void	map_validity(char **hm_map, char **map, int *p, t_node *node);
+int		valid_rout(t_node *node, char **map, char **hm_map, int *p);
 bool	path_check(char **map);
 //image-values
 void	images_value(t_data *d, int w, int h);
@@ -94,6 +95,8 @@ int		get_enemy_index(char **map, int w, int h);
 void	player_sprites(void ***img, t_data *d, int w, int h);
 //enemy_sprite
 void	enemy_sprites(void ***img, t_data *d, int w, int h);
+//utils
+void	save_variables(t_data *d, int *i, int *j, int **r_l);
 //free
 void	free_all(t_data *d, int flag);
 void	free_two_d_array(char **strs);

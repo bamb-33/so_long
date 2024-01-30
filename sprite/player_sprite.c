@@ -6,11 +6,11 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 15:59:06 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 21:48:25 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/29 22:24:56 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 void	enemy_detection(t_data *d)
 {
