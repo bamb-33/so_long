@@ -6,13 +6,13 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:38:29 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/31 12:12:24 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:19:39 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-static bool	characters(char *map)
+int	characters(char *map)
 {
 	int	i;
 	int	counter_e;
@@ -38,7 +38,7 @@ static bool	characters(char *map)
 	return (0);
 }
 
-static bool	walls(char *map, char **map_two_d)
+int	walls(char *map, char **map_two_d)
 {
 	int	i;
 	int	w;
@@ -65,7 +65,7 @@ static bool	walls(char *map, char **map_two_d)
 	return (1);
 }
 
-static bool	rectangular(char *map, char **map_two_d)
+int	rectangular(char *map, char **map_two_d)
 {
 	int	i;
 	int	w;
@@ -92,7 +92,7 @@ static bool	rectangular(char *map, char **map_two_d)
 	return (1);
 }
 
-bool	path_check(char **map)
+int	path_check(char **map)
 {
 	int	i;
 	int	j;

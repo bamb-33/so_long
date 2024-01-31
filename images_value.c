@@ -6,27 +6,35 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:28:24 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/31 12:08:53 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:29:36 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	free_previous(t_data *d, char *map)
+void	free_previous(t_data *d, char *map, int flag)
 {
 	int	i;
 
 	i = 0;
 	free(map);
-	free_two_d_array(d->map);
-	free(d->enemy_status);
-	if (!d->img_d.img)
+	if (flag >= 1)
+		free_two_d_array(d->map);
+	if (flag >= 2)
+		free(d->enemy_status);
+	if (flag >= 3)
 	{
-		free(d->img_d.img);
-		exit(1);
+		if (!d->img)
+		{
+			free(d->img);
+			exit(1);
+		}
 	}
-	while (d->img_d.img[i])
-		free(d->img_d.img[i++]);
+	if (flag >= 4)
+	{
+		while (d->img[i])
+			free(d->img[i++]);
+	}
 	exit(1);
 }
 
@@ -86,22 +94,22 @@ void	images_value(char *map, t_data *d, int w, int h)
 	int	i;
 
 	i = 0;
-	d->img_d.img = (void ***) malloc (6 * sizeof (void **));
-	if (!d->img_d.img)
-		free_previous(d, map);
+	d->img = (void ***) malloc (6 * sizeof (void **));
+	if (!d->img)
+		free_previous(d, map, 3);
 	while (i < 4)
 	{
-		d->img_d.img[i] = (void **) malloc (1 * sizeof (void *));
-		if (!d->img_d.img[i++])
-			free_previous(d, map);
+		d->img[i] = (void **) malloc (1 * sizeof (void *));
+		if (!d->img[i++])
+			free_previous(d, map, 4);
 	}
-	d->img_d.img[i] = (void **) malloc (21 * sizeof (void *));
-	if (!d->img_d.img[i++])
-		free_previous(d, map);
-	d->img_d.img[i] = (void **) malloc (14 * sizeof (void *));
-	if (!d->img_d.img[i++])
-		free_previous(d, map);
-	init_basic_blocks(d->img_d.img, d, w, h);
-	init_player_sprite_imgs(d->img_d.img, d, w, h);
-	init_enemy_sprite_imgs(d->img_d.img, d, w, h);
+	d->img[i] = (void **) malloc (21 * sizeof (void *));
+	if (!d->img[i++])
+		free_previous(d, map, 4);
+	d->img[i] = (void **) malloc (14 * sizeof (void *));
+	if (!d->img[i++])
+		free_previous(d, map, 4);
+	init_basic_blocks(d->img, d, w, h);
+	init_player_sprite_imgs(d->img, d, w, h);
+	init_enemy_sprite_imgs(d->img, d, w, h);
 }

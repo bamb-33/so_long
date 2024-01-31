@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:57:16 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/31 10:34:58 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:29:20 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	destroy_all_imgs(t_data *d, void ***img)
 		mlx_destroy_image(d->mlx, img[5][i++]);
 	i = 0;
 	while (i < 6)
-		free(d->img_d.img[i++]);
-	free(d->img_d.img);
+		free(d->img[i++]);
+	free(d->img);
 }
 
 void	free_two_d_array(char **strs)
@@ -80,7 +80,7 @@ int	check_enemy_status(t_data *d)
 void	free_all(t_data *d, int flag)
 {
 	mlx_clear_window(d->mlx, d->mlx_window);
-	destroy_all_imgs(d, d->img_d.img);
+	destroy_all_imgs(d, d->img);
 	if (check_for_enemies(d->map, 0) && flag >= 1)
 	{
 		free(d->to_free_in_the_end.i_add);

@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:31:59 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/31 10:35:24 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:16:35 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	enemy_movement(t_data *d, int i[], int right, int left)
 	{
 		if (d->map[i[0]][i[1] + 1] == 'P')
 		{
-			printf("YOU DIED LIL NIGGA\n");
+			ft_putstr_fd("YOU DIED LIL NIGGA\n", 1);
 			free_all(d, 4);
 		}
 		d->map[i[0]][i[1]] = '0';
@@ -47,7 +47,7 @@ void	enemy_movement(t_data *d, int i[], int right, int left)
 	{
 		if (d->map[i[0]][i[1] - 1] == 'P')
 		{
-			printf("YOU DIED LIL NIGGA\n");
+			ft_putstr_fd("YOU DIED LIL NIGGA\n", 1);
 			free_all(d, 4);
 		}
 		d->map[i[0]][i[1]] = '0';

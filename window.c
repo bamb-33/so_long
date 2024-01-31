@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/31 11:15:46 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:29:44 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,21 @@ int	key_hook(int keycode, t_data *data)
 	return (0);
 }
 
-void	window_creation(t_data data)
+void	window_creation(t_data *data)
 {
 	int	w;
 	int	h;
 
-	w = maps_width(data.map);
-	h = maps_height(data.map);
-	data.mlx_window = mlx_new_window(data.mlx, (w * 64), (h * 64), "so_long");
-	mlx_loop_hook(data.mlx, pixels, &data);
-	mlx_key_hook(data.mlx_window, key_hook, &data);
-	mlx_loop(data.mlx);
+	w = maps_width(data->map);
+	h = maps_height(data->map);
+	data->mlx_window = mlx_new_window(data->mlx, (w * 64), (h * 64), "S");
+	if (!data->mlx_window)
+	{
+		free_two_d_array(data->map);
+		destroy_all_imgs(data, data->img);
+		free(data->enemy_status);
+	}
+	mlx_loop_hook(data->mlx, pixels, data);
+	mlx_key_hook(data->mlx_window, key_hook, data);
+	mlx_loop(data->mlx);
 }

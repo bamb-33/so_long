@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:29:33 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/31 11:14:09 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:28:50 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	put_in_window(char c, t_data *d, int w, int h)
 {
 	void	***img;
 
-	img = d->img_d.img;
+	img = d->img;
 	if (c == '0' || c == 'J')
 		mlx_put_image_to_window(d->mlx, d->mlx_window, img[0][0], w, h);
 	else if (c == '1')
