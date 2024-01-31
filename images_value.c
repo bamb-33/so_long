@@ -6,17 +6,18 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:28:24 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/29 18:45:43 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 12:08:53 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	free_previous(t_data *d)
+void	free_previous(t_data *d, char *map)
 {
 	int	i;
 
 	i = 0;
+	free(map);
 	free_two_d_array(d->map);
 	free(d->enemy_status);
 	if (!d->img_d.img)
@@ -80,26 +81,26 @@ void	init_enemy_sprite_imgs(void ***img, t_data *data, int w, int h)
 	img[5][13] = mlx_xpm_file_to_image(data->mlx, "sprite/G/V/7.xpm", &w, &h);
 }
 
-void	images_value(t_data *d, int w, int h)
+void	images_value(char *map, t_data *d, int w, int h)
 {
 	int	i;
 
 	i = 0;
 	d->img_d.img = (void ***) malloc (6 * sizeof (void **));
 	if (!d->img_d.img)
-		free_previous(d);
+		free_previous(d, map);
 	while (i < 4)
 	{
 		d->img_d.img[i] = (void **) malloc (1 * sizeof (void *));
 		if (!d->img_d.img[i++])
-			free_previous(d);
+			free_previous(d, map);
 	}
 	d->img_d.img[i] = (void **) malloc (21 * sizeof (void *));
 	if (!d->img_d.img[i++])
-		free_previous(d);
+		free_previous(d, map);
 	d->img_d.img[i] = (void **) malloc (14 * sizeof (void *));
 	if (!d->img_d.img[i++])
-		free_previous(d);
+		free_previous(d, map);
 	init_basic_blocks(d->img_d.img, d, w, h);
 	init_player_sprite_imgs(d->img_d.img, d, w, h);
 	init_enemy_sprite_imgs(d->img_d.img, d, w, h);

@@ -6,44 +6,58 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:26:44 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 20:38:49 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 11:10:31 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-t_node	*free_useless_node(t_node *node, char **map)
+void	check_for_exits(char **map, char **hm_map, int *p)
 {
-	t_node	*previous_node;
-
-	if (!node->previous)
-		return (node);
-	map[node->content[4]][node->content[5]] = '0';
-	previous_node = node->previous;
-	map[previous_node->content[4]][previous_node->content[5]] = 'P';
-	free(node->content);
-	free(node);
-	return (previous_node);
+	if (map[p[0] - 1][p[1]] == 'E')
+		hm_map[p[0] - 1][p[1]] = '1';
+	if (map[p[0] + 1][p[1]] == 'E')
+		hm_map[p[0] + 1][p[1]] = '1';
+	if (map[p[0]][p[1] - 1] == 'E')
+		hm_map[p[0]][p[1] - 1] = '1';
+	if (map[p[0]][p[1] + 1] == 'E')
+		hm_map[p[0]][p[1] + 1] = '1';
 }
 
-t_node	*init(char **hm_map, char **map, int *p, t_node *node)
+int	valid_rout(t_node *node, char **map, char **hm_map, int *p)
+{
+	if (map[p[0] - 1][p[1]] != 'E'
+		&& map[p[0] - 1][p[1]] != '1' && hm_map[p[0] - 1][p[1]] != '1')
+		node->content[0] = 1;
+	if (map[p[0] + 1][p[1]] != 'E'
+		&& map[p[0] + 1][p[1]] != '1' && hm_map[p[0] + 1][p[1]] != '1')
+		node->content[1] = 1;
+	if (map[p[0]][p[1] - 1] != 'E'
+		&& map[p[0]][p[1] - 1] != '1' && hm_map[p[0]][p[1] - 1] != '1')
+		node->content[2] = 1;
+	if (map[p[0]][p[1] + 1] != 'E'
+		&& map[p[0]][p[1] + 1] != '1' && hm_map[p[0]][p[1] + 1] != '1')
+		node->content[3] = 1;
+	check_for_exits(map, hm_map, p);
+	return (0);
+}
+
+t_node	init(char **hm_map, char **map, int *p, t_node *node)
 {
 	int		i;
-	t_node	*new_node;
+	t_node	new_node;
 
 	i = 0;
-	new_node = (t_node *) malloc (sizeof(t_node));
-	new_node->content = (int *) malloc (sizeof(int) * 6);
 	hm_map[p[0]][p[1]] = '1';
 	while (i < 4)
-		new_node->content[i++] = 0;
-	valid_rout(new_node, map, hm_map, p);
-	new_node->content[4] = p[0];
-	new_node->content[5] = p[1];
-	new_node->previous = node;
-	new_node->next = NULL;
+		new_node.content[i++] = 0;
+	valid_rout(&new_node, map, hm_map, p);
+	new_node.content[4] = p[0];
+	new_node.content[5] = p[1];
+	new_node.previous = node;
+	new_node.next = NULL;
 	if (node)
-		node->next = new_node;
+		node->next = &new_node;
 	return (new_node);
 }
 
@@ -77,21 +91,28 @@ int	move(char **hm_map, char **map, int *p, t_node *node)
 
 void	map_validity(char **hm_map, char **map, int *p, t_node *node)
 {
-	t_node	*new_node;
+	t_node	new_node;
 	t_node	*node_sent;
 
 	new_node = init(hm_map, map, p, node);
-	node_sent = new_node;
+	node_sent = &new_node;
 	while (move(hm_map, map, p, node_sent) == 0)
 	{
-		node_sent = free_useless_node(node_sent, map);
 		if (node_sent->previous == NULL)
 		{
-			free(node_sent->content);
-			free(node_sent);
 			free_two_d_array(map);
-			return ;
+			if (path_check(hm_map))
+			{
+				free_two_d_array(hm_map);
+				return ;
+			}
+			ft_putendl_fd("Error", 2);
+			free_two_d_array(hm_map);
+			exit(1);
 		}
+		map[node_sent->content[4]][node_sent->content[5]] = '0';
+		node_sent = node_sent->previous;
+		map[node_sent->content[4]][node_sent->content[5]] = 'P';
 		p = starting_position(map);
 	}
 	map_validity(hm_map, map, starting_position(map), node_sent);

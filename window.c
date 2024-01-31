@@ -6,13 +6,13 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:04:50 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 17:44:08 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 11:15:46 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	maps_height(char *map)
+int	maps_height(char **map)
 {
 	int	i;
 	int	count;
@@ -21,19 +21,17 @@ int	maps_height(char *map)
 	count = 1;
 	while (map[i])
 	{
-		if (map[i] == '\n')
-			count++;
 		i++;
 	}
-	return (count);
+	return (i);
 }
 
-int	maps_width(char *map)
+int	maps_width(char **map)
 {
 	int	i;
 
 	i = 1;
-	while (map[i] != '\n')
+	while (map[0][i])
 		i++;
 	return (i);
 }
@@ -55,10 +53,7 @@ void	direction_movement(char move, t_data *data)
 int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == 53)
-	{
-		mlx_destroy_window(data->mlx, data->mlx_window);
-		exit (0);
-	}
+		free_all(data, 5);
 	if (keycode == 126)
 		direction_movement('w', data);
 	if (keycode == 125)
@@ -72,16 +67,15 @@ int	key_hook(int keycode, t_data *data)
 	return (0);
 }
 
-void	window_creation(char *map, t_data data)
+void	window_creation(t_data data)
 {
 	int	w;
 	int	h;
 
-	w = maps_width(map);
-	h = maps_height(map);
-	free(map);
+	w = maps_width(data.map);
+	h = maps_height(data.map);
 	data.mlx_window = mlx_new_window(data.mlx, (w * 64), (h * 64), "so_long");
-	mlx_key_hook(data.mlx_window, key_hook, &data);
 	mlx_loop_hook(data.mlx, pixels, &data);
+	mlx_key_hook(data.mlx_window, key_hook, &data);
 	mlx_loop(data.mlx);
 }

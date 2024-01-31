@@ -20,7 +20,7 @@
 # 	$(MAKE) -C libft
 
 CC = cc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = 
 MLXFLAGS = -I /usr/local/include -L /usr/local/bin/  -lmlx -framework OpenGL -framework AppKit
 
 SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_strlen.c \
@@ -33,7 +33,7 @@ SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_is
 	   libft/get_next_line_utils.c libft/get_next_line.c
 
 SRC = main.c window.c map/map_generator.c map/map_checker.c collectibles_check.c map/map_validity.c images_value.c movement.c \
-	sprite/player_sprite.c sprite/enemy_sprite.c free_all.c sprite/utils.c map/utils_map.c
+	sprite/player_sprite.c sprite/enemy_sprite.c free_all.c sprite/utils.c
 
 SRC_B = 
 

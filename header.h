@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:23:03 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 20:38:55 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 12:09:18 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,26 @@ typedef struct s_data
 
 typedef struct s_node
 {
-	int				*content;
+	int				content[6];
 	struct s_node	*next;
 	struct s_node	*previous;
-	char			*map;
 }	t_node;
 
 //windows
-int		maps_height(char *map);
-int		maps_width(char *map);
-void	window_creation(char *map, t_data data);
+int		maps_height(char **map);
+int		maps_width(char **map);
+void	window_creation(t_data data);
 //movement
 void	up(t_data *data);
 void	down(t_data *data);
 void	left(t_data *data);
 void	right(t_data *data);
 //map
-bool	parsing(char *map);
-t_node	*free_useless_node(t_node *node, char **map);
-void	free_nodes(t_node *head);
+void	parsing(char *map);
 void	map_validity(char **hm_map, char **map, int *p, t_node *node);
-int		valid_rout(t_node *node, char **map, char **hm_map, int *p);
 bool	path_check(char **map);
 //image-values
-void	images_value(t_data *d, int w, int h);
+void	images_value(char *map, t_data *d, int w, int h);
 
 // collectibles_check
 int		collectibles_check(t_data *d);

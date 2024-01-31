@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:11:34 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 20:37:50 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 10:06:53 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	left(t_data *data)
 	if (data->map[p[0]][p[1] - 1] == 'E' && collectibles_check(data) == 1)
 	{
 		printf("YOU WON!!!!");
-
 		free_all(data, 5);
 	}
 	if (data->map[p[0]][p[1] - 1] == 'G')

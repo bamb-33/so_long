@@ -6,13 +6,13 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:38:29 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/30 20:40:58 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 12:12:24 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-static bool	characters_check(char *map)
+static bool	characters(char *map)
 {
 	int	i;
 	int	counter_e;
@@ -38,7 +38,7 @@ static bool	characters_check(char *map)
 	return (0);
 }
 
-static bool	check_walls(char *map)
+static bool	walls(char *map, char **map_two_d)
 {
 	int	i;
 	int	w;
@@ -55,9 +55,9 @@ static bool	check_walls(char *map)
 			w = 1;
 			h++;
 		}
-		if ((h == 1 || h == maps_height(map)) && map[i] != '1')
+		if ((h == 1 || h == maps_height(map_two_d)) && map[i] != '1')
 			return (0);
-		else if ((w == 1 || w == maps_width(map)) && map[i] != '1')
+		else if ((w == 1 || w == maps_width(map_two_d)) && map[i] != '1')
 			return (0);
 		w++;
 		i++;
@@ -65,20 +65,20 @@ static bool	check_walls(char *map)
 	return (1);
 }
 
-static bool	rectangular_check(char *map)
+static bool	rectangular(char *map, char **map_two_d)
 {
 	int	i;
 	int	w;
 
 	i = 0;
 	w = 0;
-	if (maps_width(map) == maps_height(map))
+	if (maps_width(map_two_d) == maps_height(map_two_d))
 		return (0);
 	while (map[i])
 	{
 		if (!map[i + 1])
 			w++;
-		if ((map[i] == '\n' || !map[i + 1]) && w != maps_width(map))
+		if ((map[i] == '\n' || !map[i + 1]) && w != maps_width(map_two_d))
 			return (0);
 		if (map[i] == '\n')
 		{
@@ -113,24 +113,31 @@ bool	path_check(char **map)
 	return (1);
 }
 
-bool	parsing(char *map)
+void	parsing(char *map)
 {
 	char	**hm_map;
 	char	**map_two_d;
-	int		*p;
 
 	hm_map = ft_split(map, '\n');
-	p = starting_position(hm_map);
-	if (check_walls(map) && characters_check(map) && rectangular_check(map))
+	if (!hm_map)
 	{
-		map_two_d = ft_split(map, '\n');
-		map_validity(hm_map, map_two_d, p, NULL);
-		if (path_check(hm_map))
-		{
-			free_two_d_array(hm_map);
-			return (1);
-		}
+		free(map);
+		exit(1);
 	}
-	free_two_d_array(hm_map);
-	return (0);
+	map_two_d = ft_split(map, '\n');
+	if (!map_two_d)
+	{
+		free(map);
+		free_two_d_array(hm_map);
+		exit(1);
+	}
+	if (walls(map, hm_map) && characters(map) && rectangular(map, hm_map))
+	{
+		free(map);
+		map_validity(hm_map, map_two_d, starting_position(hm_map), NULL);
+		return ;
+	}
+	free(map);
+	ft_putendl_fd("Error", 2);
+	exit(1);
 }
