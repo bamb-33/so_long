@@ -6,7 +6,7 @@
 /*   By: naadou <naadou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:31:59 by naadou            #+#    #+#             */
-/*   Updated: 2024/01/31 14:16:35 by naadou           ###   ########.fr       */
+/*   Updated: 2024/01/31 20:32:56 by naadou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	enemy_obstacles(t_data *d, int i[], int *right, int *left)
 {
-	if (d->map[i[0]][i[1] + 1] != '0' && d->map[i[0]][i[1] - 1] != '0')
+	if ((d->map[i[0]][i[1] + 1] != '0' && d->map[i[0]][i[1] + 1] != 'P') && (d->map[i[0]][i[1] - 1] != '0' && d->map[i[0]][i[1] - 1] != 'P'))
 	{
 		*left = 0;
 		*right = 0;
 	}
-	else if (d->map[i[0]][i[1] + 1] != '0')
-	{
-		*left = 1;
-		*right = 0;
-	}
-	else if (d->map[i[0]][i[1] - 1] != '0')
+	else if (d->map[i[0]][i[1] + 1] == '0' || d->map[i[0]][i[1] + 1] == 'P')
 	{
 		*left = 0;
 		*right = 1;
+	}
+	else if (d->map[i[0]][i[1] - 1] == '0' || d->map[i[0]][i[1] - 1] == 'P')
+	{
+		*left = 1;
+		*right = 0;
 	}
 }
 
